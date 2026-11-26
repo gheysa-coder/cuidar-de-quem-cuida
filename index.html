@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cuidar de quem cuida — CAPSi Eldorado</title>
+<meta name="description" content="Projeto de intervenção psicossocial sobre a saúde mental dos trabalhadores do CAPSi Eldorado (Contagem, MG). Grupo 4 — Psicologia Social, UNA — ExpoUNA 2026.">
+<meta name="theme-color" content="#1F3A5F">
+<style>
+:root{
+  --navy:#1F3A5F; --navy-2:#2B4C77; --teal:#2A7F78; --teal-d:#20655F; --gold:#E0A93B; --red:#E30613;
+  --ink:#1B2430; --muted:#4A5563; --bg:#F7F9FB; --card:#E8F0F8; --card-2:#FFFFFF; --line:#C9D6E3;
+  --radius:10px; --navh:96px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:calc(var(--navh) + 8px)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;font-family:var(--font);font-size:1.0625rem;line-height:1.6;color:var(--ink);background:var(--bg);overflow-x:hidden}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4{color:var(--navy);line-height:1.2;margin:0 0 .5em}
+p{margin:0 0 1em}
+a{color:var(--teal-d)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+button{font:inherit}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-999px;top:0;background:var(--navy);color:#fff;padding:.6em 1em;z-index:100}
+.skip:focus{left:8px;top:8px}
+.topstripe{height:6px;background:var(--teal)}
+
+/* ---------- Sticky nav ---------- */
+.nav{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 8px rgba(31,58,95,.06)}
+.nav-progress{height:4px;background:#E3EAF2}
+.nav-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--gold))}
+.nav-row{display:flex;align-items:center;gap:.5rem;padding:.4rem .75rem;max-width:960px;margin:0 auto}
+.nav-title{font-weight:700;color:var(--navy);font-size:.95rem;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4em;min-height:44px;padding:.5em 1em;border-radius:999px;border:2px solid var(--teal);background:var(--teal);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer;text-decoration:none;line-height:1.2}
+.btn:hover{background:var(--teal-d);border-color:var(--teal-d)}
+.btn.ghost{background:#fff;color:var(--teal-d)}
+.btn.ghost:hover{background:#EAF5F4}
+.btn.small{min-height:40px;padding:.35em .85em;font-size:.875rem}
+.chips{display:flex;gap:.4rem;overflow-x:auto;padding:.1rem .75rem .55rem;max-width:960px;margin:0 auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.chip{flex:0 0 auto;display:inline-flex;align-items:center;gap:.35em;min-height:36px;padding:.3em .75em;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--navy);font-size:.85rem;font-weight:600;text-decoration:none;white-space:nowrap}
+.chip b{color:var(--teal-d);font-variant-numeric:tabular-nums}
+.chip[aria-current="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.chip[aria-current="true"] b{color:var(--gold)}
+
+/* ---------- Layout ---------- */
+main{max-width:960px;margin:0 auto;padding:0 1rem 2rem}
+.slide{background:var(--card-2);border-radius:var(--radius);margin:1.25rem 0;padding:1.5rem 1.15rem 1.35rem;box-shadow:0 1px 3px rgba(31,58,95,.08);border-top:6px solid var(--teal);position:relative}
+.eyebrow{display:flex;justify-content:space-between;align-items:center;gap:1rem;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);margin-bottom:.6rem}
+.num{font-variant-numeric:tabular-nums;color:var(--navy);background:#EEF3F8;border-radius:6px;padding:.1em .5em;letter-spacing:0}
+.slide h2{font-size:clamp(1.55rem,5.5vw,2.1rem);padding-bottom:.55rem;border-bottom:2px solid var(--navy-2);margin-bottom:1.1rem}
+.slide-foot{margin-top:1.4rem;padding-top:.5rem;border-top:1px solid var(--line);font-size:.72rem;letter-spacing:.05em;color:var(--muted);display:flex;justify-content:space-between;gap:1rem}
+
+/* Hero */
+.hero{border-top:none;padding-top:1.25rem}
+.hero .brandrow{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}
+.hero .logo{width:210px;max-width:60%}
+.hero .kicker{font-size:.8rem;font-weight:700;letter-spacing:.06em;color:var(--teal-d);margin-top:.35rem}
+.hero .t1{font-size:clamp(1.5rem,6vw,2.1rem);margin:1.2rem 0 .5rem;padding-bottom:.6rem;border-bottom:2px solid var(--navy-2)}
+.hero h1{font-size:clamp(1.9rem,8vw,3rem);margin:.6rem 0 .8rem;letter-spacing:-.01em}
+.hero .proj{color:var(--teal-d);font-weight:700;font-size:1.2rem;margin-bottom:1rem}
+.hero .meta{color:var(--muted);font-size:1.05rem}
+.hero .meta span{white-space:nowrap}
+.goldrule{display:block;width:min(260px,60%);height:8px;background:var(--gold);border-radius:2px;margin:1.3rem 0 1.2rem}
+.hero .intro{background:#EEF3F8;border-radius:8px;padding:1rem;margin-top:1rem}
+.hero .cta{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+
+/* Cards */
+.grid{display:grid;gap:.85rem}
+@media (min-width:640px){.grid.c3{grid-template-columns:repeat(3,1fr)}.grid.c2{grid-template-columns:repeat(2,1fr)}}
+.card{background:var(--card);border-radius:6px;padding:1rem 1rem .9rem;border-left:5px solid var(--navy-2)}
+.card.teal{border-left-color:var(--teal)}
+.card.gold{border-left-color:var(--gold)}
+.card h3{font-size:1.15rem;margin-bottom:.4rem}
+.card p{margin:0}
+.lead{font-size:1.2rem;font-weight:700;color:var(--navy)}
+
+/* Didactic */
+.explain{margin-top:1.2rem;border:1px solid #CFE3E1;background:#F1F8F7;border-radius:8px;padding:.9rem 1rem}
+.explain h4{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--teal-d);margin-bottom:.35rem}
+.explain p:last-child{margin-bottom:0}
+.note{margin-top:.9rem;border-left:4px solid var(--gold);background:#FDF6E8;padding:.7rem .9rem;border-radius:0 8px 8px 0;font-size:.98rem}
+.note strong{color:#7A5200}
+details.more{margin-top:.9rem;border:1px solid var(--line);border-radius:8px;background:#fff}
+details.more summary{cursor:pointer;min-height:44px;display:flex;align-items:center;gap:.5rem;padding:.55rem 1rem;font-weight:700;color:var(--navy);list-style:none}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::before{content:"+";display:inline-grid;place-items:center;width:1.4em;height:1.4em;border-radius:50%;background:var(--navy);color:#fff;font-size:.9em;flex:0 0 auto}
+details.more[open] summary::before{content:"–"}
+details.more .body{padding:0 1rem .9rem}
+details.more .body p:last-child,details.more .body ul:last-child{margin-bottom:0}
+details.more ul{padding-left:1.2rem;margin:.2rem 0 1rem}
+
+/* Stepper */
+.stepper{list-style:none;margin:0;padding:0;counter-reset:none}
+.stepper li{position:relative;display:grid;grid-template-columns:3rem 1fr;gap:.85rem;padding-bottom:1rem}
+.stepper li:not(:last-child)::after{content:"";position:absolute;left:1.5rem;top:3rem;bottom:0;width:2px;background:var(--line);transform:translateX(-1px)}
+.stepper .dot{width:3rem;height:3rem;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font-weight:800;font-variant-numeric:tabular-nums}
+.stepper li:nth-child(2) .dot{background:var(--teal)}
+.stepper li:nth-child(3) .dot{background:#B07A12}
+.stepper li:nth-child(4) .dot{background:var(--navy-2)}
+.stepper .sbody{background:var(--card);border-radius:6px;padding:.7rem .9rem}
+.stepper h3{font-size:1.15rem;margin:0 0 .2rem}
+.stepper p{margin:0}
+
+/* Breathing */
+.breath{margin-top:1rem;background:linear-gradient(180deg,#EEF6F5,#F7FBFB);border:1px solid #CFE3E1;border-radius:12px;padding:1.1rem 1rem;text-align:center}
+.breath h3{font-size:1.1rem}
+.breath-stage{position:relative;width:min(260px,76vw);aspect-ratio:1;margin:.6rem auto 1rem;display:grid;place-items:center}
+.breath-ring{position:absolute;inset:0;border-radius:50%;border:2px dashed #9CC9C4}
+.breath-circle{position:absolute;inset:12%;border-radius:50%;background:radial-gradient(circle at 35% 35%,#5FB3AB,var(--teal));transform:scale(.62);transition-property:transform;transition-timing-function:ease-in-out;box-shadow:0 0 0 6px rgba(42,127,120,.12)}
+.breath-text{position:relative;z-index:1;color:#fff;font-weight:800;font-size:1.35rem;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.breath-text small{display:block;font-size:.95rem;font-weight:600;opacity:.95}
+.breath-controls{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+.breath-status{min-height:1.6em;color:var(--muted);font-size:.95rem;margin:.6rem 0 0}
+.breath-prompt{min-height:3.2em;margin:.6rem auto 0;max-width:34rem;font-weight:600;color:var(--navy)}
+@media (prefers-reduced-motion: reduce){
+  .breath-circle{transition:none!important;transform:scale(.8)!important}
+  .breath.inhale .breath-circle{background:var(--teal)}
+  .breath.exhale .breath-circle{background:var(--navy-2)}
+}
+
+/* Reflection */
+.qcard{background:var(--card);border-radius:8px;padding:1rem;border-left:5px solid var(--teal)}
+.qcard:nth-child(2){border-left-color:var(--gold)}
+.qcard:nth-child(3){border-left-color:var(--navy-2)}
+.qnum{font-weight:800;color:var(--teal-d);font-size:1.4rem;font-variant-numeric:tabular-nums}
+.qcard .q{font-size:1.15rem;font-weight:700;color:var(--navy);margin:.2rem 0 .7rem}
+.qcard label{display:block;font-size:.9rem;color:var(--muted);margin-bottom:.3rem}
+.qcard textarea{width:100%;min-height:5.5em;font:inherit;font-size:1rem;padding:.6rem .7rem;border:1px solid #9FB3C8;border-radius:6px;background:#fff;color:var(--ink);resize:vertical}
+.qcard textarea:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+.saved{font-size:.8rem;color:var(--teal-d);min-height:1.2em;margin-top:.25rem}
+
+/* Timeline */
+.dur-big{font-size:clamp(2rem,9vw,2.8rem);font-weight:800;color:var(--teal-d);line-height:1.1;margin:.2rem 0 1rem}
+.tl-bar{display:flex;width:100%;height:46px;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.tl-seg{position:relative;height:100%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:.8rem;min-width:0}
+.tl-seg span{overflow:hidden;white-space:nowrap}
+.s1{background:var(--navy)}.s2{background:var(--teal)}.s3{background:#B07A12}.s4{background:var(--navy-2)}
+.s4x{background:repeating-linear-gradient(135deg,#2B4C77 0 6px,#5A7AA3 6px 12px)}
+.s5{background:#4C6584}
+.tl-scale{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin:.3rem 0 1rem;font-variant-numeric:tabular-nums}
+.tl-list{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.tl-list li{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:.7rem;background:var(--card);border-radius:6px;padding:.65rem .85rem}
+.tl-list .sw{width:14px;height:14px;border-radius:3px}
+.tl-list .nm{font-weight:700;color:var(--navy)}
+.tl-list .mn{font-weight:800;color:var(--teal-d);white-space:nowrap;font-variant-numeric:tabular-nums}
+.legend-var{font-size:.88rem;color:var(--muted);margin:.5rem 0 0}
+.materials{margin-top:1.2rem}
+.materials h3{font-size:1.1rem}
+.materials ul{list-style:none;padding:0;margin:0;display:grid;gap:.45rem}
+.materials li{display:flex;gap:.6rem;align-items:center;background:#fff;border:1px solid var(--line);border-radius:6px;padding:.55rem .8rem}
+.materials li::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--gold);flex:0 0 auto}
+@media (min-width:760px){.tl-wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:1.5rem;align-items:start}.materials{margin-top:0}}
+
+/* Quote */
+.quote{background:var(--card);border-left:6px solid var(--teal);padding:1.1rem 1.1rem;margin:1rem 0;border-radius:0 8px 8px 0}
+.quote p{font-size:1.2rem;font-weight:700;color:var(--teal-d);margin:0}
+
+/* Refs */
+.refs{list-style:none;padding:0;margin:0;display:grid;gap:.8rem}
+.refs li{background:var(--card);border-radius:6px;padding:.8rem 1rem;border-left:5px solid var(--navy-2);overflow-wrap:anywhere}
+
+/* Members */
+.members{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.6rem}
+.members li{background:var(--card);border-radius:8px;padding:.85rem 1rem;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:.6rem}
+.members li::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--teal);flex:0 0 auto}
+
+/* Footer */
+.site-foot{background:var(--navy);color:#fff;text-align:center;padding:1.6rem 1rem 2rem;margin-top:1rem}
+.site-foot p{margin:.25rem 0}
+.site-foot .tag{color:#fff;font-weight:700}
+.site-foot .tag em{font-style:normal;color:#FFB3B8}
+.site-foot .redbar{width:56px;height:4px;background:var(--red);margin:0 auto .8rem;border-radius:2px}
+.backtop{color:#fff}
+
+/* ---------- Presentation mode ---------- */
+.pbar{display:none}
+body.present{overflow:hidden}
+body.present .nav, body.present .site-foot, body.present .topstripe{display:none}
+body.present main{max-width:none;padding:0}
+body.present .slide{display:none}
+body.present .slide.active{display:block;position:fixed;inset:0;margin:0;border-radius:0;overflow-y:auto;padding:1.25rem 1.1rem calc(84px + env(safe-area-inset-bottom));z-index:50;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+body.present .slide.active > .inner{max-width:900px;margin:0 auto}
+body.present .pbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--navy);color:#fff;align-items:center;justify-content:space-between;gap:.5rem;padding:.55rem .75rem calc(.55rem + env(safe-area-inset-bottom))}
+.pbar .btn{background:#fff;color:var(--navy);border-color:#fff}
+.pbar .btn:hover{background:#E3EAF2}
+.pbar .btn[disabled]{opacity:.45;cursor:not-allowed}
+.pbar .count{font-weight:800;font-variant-numeric:tabular-nums;min-width:3.5em;text-align:center}
+.pbar .exit{background:transparent;color:#fff;border-color:#fff}
+.pbar .exit:hover{background:rgba(255,255,255,.12)}
+.pbar .grp{display:flex;gap:.4rem;align-items:center}
+@media (max-width:380px){.pbar .lbl{display:none}}
+
+/* ---------- Print ---------- */
+@media print{
+  @page{margin:12mm}
+  body{background:#fff;font-size:10pt;line-height:1.45;color:#000}
+  .slide-foot{margin-top:.6rem;break-before:avoid}
+  .explain,.note,details.more{margin-top:.6rem}
+  .hero .logo{width:150px}
+  .nav,.pbar,.skip,.breath-controls,.breath-stage,.breath-status,.no-print,.hero .cta,.backtop,.saved{display:none!important}
+  main{max-width:none;padding:0}
+  .slide,body.present .slide{display:block!important;position:static!important;box-shadow:none;border:1px solid #bbb;border-top:4px solid var(--teal);margin:0;break-inside:auto;page-break-after:always;padding:5mm}
+  .slide:last-child{page-break-after:auto}
+  .card,.qcard,.stepper li,.tl-list li,.refs li,.quote,.note,.explain{break-inside:avoid}
+  details.more{border:none}
+  details.more::details-content{content-visibility:visible;display:block;height:auto}
+  details.more summary::before{display:none}
+  details.more summary{padding:0;min-height:0}
+  details.more .body{padding:0}
+  .qcard textarea{border:1px solid #999;min-height:0;height:3em}
+  .qcard{padding:.6rem .8rem}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .site-foot{background:#fff;color:#000;border-top:2px solid var(--navy)}
+  .site-foot .tag em{color:var(--red)}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<div class="topstripe" aria-hidden="true"></div>
+
+<nav class="nav" aria-label="Tópicos da apresentação">
+  <div class="nav-progress" aria-hidden="true"><span id="progress"></span></div>
+  <div class="nav-row">
+    <a class="nav-title" href="#s01">Cuidar de quem cuida</a>
+    <button type="button" class="btn small" id="btnPresent" aria-label="Abrir modo apresentação, um tópico por vez em tela cheia">&#9654; Modo apresentação</button>
+  </div>
+  <div class="chips" id="chips">
+    <a class="chip" href="#s01"><b>01</b> Abertura</a>
+    <a class="chip" href="#s02"><b>02</b> Justificativa</a>
+    <a class="chip" href="#s03"><b>03</b> Fundamentação</a>
+    <a class="chip" href="#s04"><b>04</b> Objetivo</a>
+    <a class="chip" href="#s05"><b>05</b> Metodologia</a>
+    <a class="chip" href="#s06"><b>06</b> Dinâmica</a>
+    <a class="chip" href="#s07"><b>07</b> Reflexão</a>
+    <a class="chip" href="#s08"><b>08</b> Recursos</a>
+    <a class="chip" href="#s09"><b>09</b> Resultados</a>
+    <a class="chip" href="#s10"><b>10</b> Considerações</a>
+    <a class="chip" href="#s11"><b>11</b> Referências</a>
+    <a class="chip" href="#s12"><b>12</b> Integrantes</a>
+  </div>
+</nav>
+
+<main id="conteudo">
+
+<!-- 01 -->
+<section class="slide hero" id="s01" aria-labelledby="h01" data-title="Abertura">
+ <div class="inner">
+  <div class="brandrow">
+    <p class="kicker">UNA &nbsp;•&nbsp; PSICOLOGIA SOCIAL</p>
+    <img class="logo" src="data:image/png;base64,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" width="600" height="229" alt="UNA — 65 anos, 1961–2026">
+  </div>
+  <p class="t1 h-like" style="color:var(--navy);font-weight:700">Cuidar de quem cuida</p>
+  <h1 id="h01">Saúde mental dos trabalhadores do CAPSi Eldorado</h1>
+  <p class="proj">Projeto de intervenção psicossocial</p>
+  <p class="meta"><span>Contagem (MG)</span> &nbsp;|&nbsp; <span>Grupo 4</span> &nbsp;|&nbsp; <span>2026</span></p>
+  <span class="goldrule" aria-hidden="true"></span>
+
+  <div class="explain">
+    <h4>Em poucas palavras</h4>
+    <p>Esta página reúne, na íntegra, a apresentação do Grupo 4 de Psicologia Social da UNA na ExpoUNA 2026. O trabalho é uma <strong>proposta de intervenção</strong>: um encontro planejado para cuidar da saúde mental de quem trabalha no CAPSi Eldorado, em Contagem (MG) — ou seja, cuidar de quem cuida.</p>
+  </div>
+  <details class="more">
+    <summary>Para saber mais: o que é um CAPSi?</summary>
+    <div class="body">
+      <p><strong>CAPSi</strong> significa <strong>Centro de Atenção Psicossocial Infantojuvenil</strong>. É um serviço público do SUS, parte da Rede de Atenção Psicossocial (RAPS), que atende crianças e adolescentes em sofrimento psíquico intenso, em geral grave e persistente.</p>
+      <p>O cuidado é feito por uma <strong>equipe multiprofissional</strong> (por exemplo, profissionais de psicologia, psiquiatria, enfermagem, terapia ocupacional e serviço social), em liberdade e articulado com a família, a escola e o território.</p>
+    </div>
+  </details>
+  <div class="cta">
+    <a class="btn" href="#s02">Começar a leitura</a>
+    <button type="button" class="btn ghost" data-present aria-label="Ver como apresentação, em tela cheia">Ver como apresentação</button>
+  </div>
+  <div class="slide-foot"><span>PSICOLOGIA SOCIAL • CAPSi ELDORADO • GRUPO 4</span><span class="num">01</span></div>
+ </div>
+</section>
+
+<!-- 02 -->
+<section class="slide" id="s02" aria-labelledby="h02" data-title="Justificativa">
+ <div class="inner">
+  <div class="eyebrow"><span>Intervenção psicossocial</span><span class="num">02/12</span></div>
+  <h2 id="h02">Justificativa</h2>
+  <div class="grid c3">
+    <div class="card"><h3>Contexto</h3><p>Demandas emocionais complexas e exposição cotidiana ao sofrimento psíquico.</p></div>
+    <div class="card teal"><h3>Condições de trabalho</h3><p>Limitações de recursos e estrutura podem contribuir para sobrecarga e desgaste.</p></div>
+    <div class="card gold"><h3>Necessidade</h3><p>Criar espaços de escuta, acolhimento e reflexão sobre a saúde de quem cuida.</p></div>
+  </div>
+  <div class="explain">
+    <h4>Em poucas palavras</h4>
+    <p>Quem trabalha em saúde mental convive todos os dias com o sofrimento de outras pessoas. Quando isso se soma a poucos recursos e a uma estrutura limitada, o risco de cansaço e desgaste aumenta. Por isso, a equipe também precisa de um espaço para ser ouvida e acolhida.</p>
+  </div>
+  <details class="more">
+    <summary>Para saber mais: sobrecarga e desgaste no trabalho</summary>
+    <div class="body">
+      <p>Em profissões de cuidado, o envolvimento emocional faz parte do trabalho. Quando as exigências superam por muito tempo os recursos disponíveis (tempo, equipe, estrutura, apoio), pode surgir um <strong>desgaste</strong> que afeta o bem-estar do profissional e a qualidade do cuidado.</p>
+      <p>Um quadro conhecido desse processo é a <strong>síndrome de burnout</strong> (esgotamento profissional), que a Organização Mundial da Saúde descreve como um fenômeno ligado ao trabalho. A proposta deste projeto é preventiva: abrir espaços de escuta antes que o desgaste se aprofunde.</p>
+    </div>
+  </details>
+  <div class="slide-foot"><span>PSICOLOGIA SOCIAL • CAPSi ELDORADO • GRUPO 4</span><span>02</span></div>
+ </div>
+</section>
+
+<!-- 03 -->
+<section class="slide" id="s03" aria-labelledby="h03" data-title="Fundamentação teórica">
+ <div class="inner">
+  <div class="eyebrow"><span>Intervenção psicossocial</span><span class="num">03/12</span></div>
+  <h2 id="h03">Fundamentação teórica</h2>
+  <div class="grid c3">
+    <div class="card"><h3>Paulo Amarante</h3><p>Atenção psicossocial, cidadania, autonomia e participação social.</p></div>
+    <div class="card teal"><h3>Christophe Dejours</h3><p>A organização do trabalho pode produzir prazer e sofrimento; o coletivo favorece estratégias de enfrentamento.</p></div>
+    <div class="card gold"><h3>Psicologia Social</h3><p>Escuta, protagonismo e participação na transformação das condições de trabalho.</p></div>
+  </div>
+  <div class="explain">
+    <h4>Em poucas palavras</h4>
+    <p>O projeto se apoia em três olhares: o da <strong>atenção psicossocial</strong> (cuidar da pessoa como cidadã, com autonomia), o da <strong>psicodinâmica do trabalho</strong> (o jeito como o trabalho é organizado pode fazer bem ou adoecer) e o da <strong>Psicologia Social</strong> (as pessoas participam da mudança das próprias condições).</p>
+  </div>
+  <details class="more">
+    <summary>Para saber mais: quem são os autores?</summary>
+    <div class="body">
+      <p><strong>Paulo Amarante</strong> é psiquiatra e pesquisador brasileiro, ligado à Fiocruz, e uma das principais referências da <strong>reforma psiquiátrica brasileira</strong> e da luta antimanicomial. Defende a <strong>atenção psicossocial</strong>: um cuidado em liberdade, no território, que considera a pessoa em sua vida social e não apenas o diagnóstico.</p>
+      <p><strong>Christophe Dejours</strong> é psiquiatra e psicanalista francês, fundador da <strong>psicodinâmica do trabalho</strong>. Para essa abordagem, o trabalho nunca é neutro: pode ser fonte de prazer (por exemplo, pelo reconhecimento) ou de sofrimento. Os trabalhadores constroem, juntos, formas de enfrentar esse sofrimento — por isso o coletivo é tão importante. No Brasil, a obra organizada por Ana Magnólia Mendes (2007), citada nas referências, apresenta essa teoria e seus métodos.</p>
+      <p>A <strong>Psicologia Social</strong> estuda como as pessoas se constituem nas relações e nos grupos. Aqui, ela orienta uma intervenção baseada na escuta e no protagonismo da própria equipe.</p>
+    </div>
+  </details>
+  <p class="note"><strong>Nota:</strong> referências de base — Amarante (2007); Mendes (2007). Veja o tópico 11.</p>
+  <div class="slide-foot"><span>PSICOLOGIA SOCIAL • CAPSi ELDORADO • GRUPO 4</span><span>03</span></div>
+ </div>
+</section>
+
+<!-- 04 -->
+<section class="slide" id="s04" aria-labelledby="h04" data-title="Objetivo">
+ <div class="inner">
+  <div class="eyebrow"><span>Intervenção psicossocial</span><span class="num">04/12</span></div>
+  <h2 id="h04">Objetivo</h2>
+  <p class="lead">Promover um espaço de diálogo e acolhimento para a equipe multiprofissional.</p>
+  <div class="grid c3">
+    <div class="card"><h3>Autocuidado</h3><p>Reconhecer necessidades emocionais.</p></div>
+    <div class="card teal"><h3>Valorização</h3><p>Fortalecer o reconhecimento profissional.</p></div>
+    <div class="card gold"><h3>Cuidado coletivo</h3><p>Estimular vínculos e protagonismo da equipe.</p></div>
+  </div>
+  <div class="explain">
+    <h4>Em poucas palavras</h4>
+    <p>O objetivo é abrir um momento de conversa e acolhimento para toda a equipe. Ele tem três frentes: olhar para si (<strong>autocuidado</strong>), ser reconhecido pelo trabalho que faz (<strong>valorização</strong>) e cuidar uns dos outros (<strong>cuidado coletivo</strong>).</p>
+  </div>
+  <div class="slide-foot"><span>PSICOLOGIA SOCIAL • CAPSi ELDORADO • GRUPO 4</span><span>04</span></div>
+ </div>
+</section>
+
+<!-- 05 -->
+<section class="slide" id="s05" aria-labelledby="h05" data-title="Metodologia">
+ <div class="inner">
+  <div class="eyebrow"><span>Intervenção psicossocial</span><span class="num">05/12</span></div>
+  <h2 id="h05">Metodologia</h2>
+  <ol class="stepper" aria-label="Etapas da metodologia">
+    <li><span class="dot" aria-hidden="true">01</span><div class="sbody"><h3><span class="sr-only">Etapa 1: </span>Escutar</h3><p>Roda de conversa e compartilhamento de experiências.</p></div></li>
+    <li><span class="dot" aria-hidden="true">02</span><div class="sbody"><h3><span class="sr-only">Etapa 2: </span>Refletir</h3><p>Saúde mental, sobrecarga e condições de trabalho.</p></div></li>
+    <li><span class="dot" aria-hidden="true">03</span><div class="sbody"><h3><span class="sr-only">Etapa 3: </span>Vivenciar</h3><p>Dinâmica de mindfulness (atenção plena).</p></div></li>
+    <li><span class="dot" aria-hidden="true">04</span><div class="sbody"><h3><span class="sr-only">Etapa 4: </span>Construir</h3><p>Estratégias coletivas e encaminhamentos possíveis.</p></div></li>
+  </ol>
+  <p class="note"><strong>Nota:</strong> participação voluntária, respeito e sigilo. O roteiro atualizado orienta um encontro de 50–60 minutos, substituindo o cronograma anterior de oito semanas.</p>
+  <div class="explain">
+    <h4>Em poucas palavras</h4>
+    <p>O encontro segue uma sequência: primeiro a equipe <strong>escuta</strong> e compartilha experiências; depois <strong>reflete</strong> sobre o que pesa no trabalho; em seguida <strong>vivencia</strong> uma breve prática de atenção plena; e, por fim, <strong>constrói</strong> junto ideias e encaminhamentos possíveis.</p>
+  </div>
+  <details class="more">
+    <summary>Para saber mais: o que é uma roda de conversa?</summary>
+    <div class="body">
+      <p>A <strong>roda de conversa</strong> é um método participativo em que as pessoas se sentam em círculo e todos podem falar e escutar em pé de igualdade. Quem conduz atua como facilitador: propõe o tema, cuida do tempo e garante um ambiente de respeito, sem impor respostas.</p>
+    </div>
+  </details>
+  <div class="slide-foot"><span>PSICOLOGIA SOCIAL • CAPSi ELDORADO • GRUPO 4</span><span>05</span></div>
+ </div>
+</section>
+
+<!-- 06 -->
+<section class="slide" id="s06" aria-labelledby="h06" data-title="Dinâmica: uma pausa para mim">
+ <div class="inner">
+  <div class="eyebrow"><span>Intervenção psicossocial</span><span class="num">06/12</span></div>
+  <h2 id="h06">Dinâmica: uma pausa para mim</h2>
+  <div class="grid c3">
+    <div class="card"><h3>Respirar</h3><p>Exercício breve de respiração consciente, sem forçar.</p></div>
+    <div class="card teal"><h3>Perceber</h3><p>Atenção ao momento presente, às emoções e sensações.</p></div>
+    <div class="card gold"><h3>Reconhecer</h3><p>Refletir sobre as próprias necessidades de cuidado.</p></div>
+  </div>
+  <p class="note"><strong>Participação voluntária:</strong> cada pessoa pode adaptar ou interromper a prática.</p>
+
+  <div class="breath idle" id="breath" role="group" aria-labelledby="breathTitle">
+    <h3 id="breathTitle">Experimente agora: uma pausa guiada</h3>
+    <p style="margin:0;color:var(--muted);font-size:.95rem">Siga o círculo: inspire enquanto ele cresce (cerca de 4 s) e expire enquanto ele diminui (cerca de 6 s). Respire no seu ritmo, sem forçar.</p>
+    <div class="breath-stage" aria-hidden="true">
+      <div class="breath-ring"></div>
+      <div class="breath-circle" id="breathCircle"></div>
+      <div class="breath-text" id="breathText">Pronto?</div>
+    </div>
+    <div class="breath-controls">
+      <button type="button" class="btn" id="breathBtn" aria-pressed="false" aria-label="Iniciar respiração guiada">&#9654; Iniciar</button>
+      <button type="button" class="btn ghost" id="breathReset" aria-label="Reiniciar respiração guiada">Reiniciar</button>
+    </div>
+    <p class="breath-prompt" id="breathPrompt" aria-live="polite">Respirar → Perceber → Reconhecer</p>
+    <p class="breath-status" id="breathStatus" aria-live="polite"></p>
+  </div>
+
+  <div class="explain">
+    <h4>Em poucas palavras</h4>
+    <p>É uma pausa curta dentro do encontro. A pessoa respira com calma, presta atenção a como está se sentindo agora e pensa no que ela mesma precisa para se cuidar. Não existe jeito “certo”: cada um participa como se sentir confortável.</p>
+  </div>
+  <details class="more">
+    <summary>Para saber mais: o que é mindfulness (atenção plena)?</summary>
+    <div class="body">
+      <p><strong>Mindfulness</strong>, ou <strong>atenção plena</strong>, é a prática de prestar atenção, de forma intencional, ao momento presente — à respiração, às sensações do corpo, aos pensamentos e às emoções — sem julgamento.</p>
+      <p>Tem raízes em tradições contemplativas e foi adaptada para a área da saúde, por exemplo no programa de redução de estresse criado por Jon Kabat-Zinn nos Estados Unidos. Em uma dinâmica de grupo, é usada como um momento breve de pausa e percepção de si, e não como terapia.</p>
+      <ul>
+        <li>Se sentir tontura ou desconforto, volte a respirar normalmente.</li>
+        <li>Os olhos podem ficar abertos ou fechados, como preferir.</li>
+      </ul>
+    </div>
+  </details>
+  <div class="slide-foot"><span>PSICOLOGIA SOCIAL • CAPSi ELDORADO • GRUPO 4</span><span>06</span></div>
+ </div>
+</section>
+
+<!-- 07 -->
+<section class="slide" id="s07" aria-labelledby="h07" data-title="Reflexão coletiva">
+ <div class="inner">
+  <div class="eyebrow"><span>Intervenção psicossocial</span><span class="num">07/12</span></div>
+  <h2 id="h07">Reflexão coletiva</h2>
+  <div class="grid">
+    <div class="qcard">
+      <span class="qnum">01</span>
+      <p class="q" id="q1">O que tem me sobrecarregado no trabalho?</p>
+      <label for="r1">Anote sua reflexão (fica só no seu aparelho)</label>
+      <textarea id="r1" data-key="cqc-reflexao-1" aria-describedby="q1"></textarea>
+      <div class="saved" aria-live="polite"></div>
+    </div>
+    <div class="qcard">
+      <span class="qnum">02</span>
+      <p class="q" id="q2">O que me ajuda a recuperar minhas forças?</p>
+      <label for="r2">Anote sua reflexão (fica só no seu aparelho)</label>
+      <textarea id="r2" data-key="cqc-reflexao-2" aria-describedby="q2"></textarea>
+      <div class="saved" aria-live="polite"></div>
+    </div>
+    <div class="qcard">
+      <span class="qnum">03</span>
+      <p class="q" id="q3">O que podemos construir coletivamente para cuidar melhor da equipe?</p>
+      <label for="r3">Anote sua reflexão (fica só no seu aparelho)</label>
+      <textarea id="r3" data-key="cqc-reflexao-3" aria-describedby="q3"></textarea>
+      <div class="saved" aria-live="polite"></div>
+    </div>
+  </div>
+  <p style="margin-top:.8rem;font-size:.9rem;color:var(--muted)">Nada do que você escreve aqui é enviado pela internet. <button type="button" class="btn ghost small no-print" id="clearNotes" aria-label="Apagar minhas anotações deste aparelho">Apagar minhas anotações</button></p>
+  <div class="explain">
+    <h4>Em poucas palavras</h4>
+    <p>As três perguntas vão do individual ao coletivo: primeiro, o que pesa; depois, o que ajuda a recuperar as forças; por último, o que a equipe pode construir junta. A ideia é transformar desabafos em propostas concretas de cuidado.</p>
+  </div>
+  <div class="slide-foot"><span>PSICOLOGIA SOCIAL • CAPSi ELDORADO • GRUPO 4</span><span>07</span></div>
+ </div>
+</section>
+
+<!-- 08 -->
+<section class="slide" id="s08" aria-labelledby="h08" data-title="Recursos e duração">
+ <div class="inner">
+  <div class="eyebrow"><span>Intervenção psicossocial</span><span class="num">08/12</span></div>
+  <h2 id="h08">Recursos e duração</h2>
+  <p class="dur-big">50–60 minutos</p>
+  <div class="tl-wrap">
+    <div>
+      <div class="tl-bar" role="img" aria-label="Linha do tempo do encontro: Acolhimento 5 minutos; Roda de conversa 15 minutos; Mindfulness 10 minutos; Reflexão e propostas 15 a 25 minutos; Encerramento 5 minutos. Total de 50 a 60 minutos.">
+        <div class="tl-seg s1" style="width:8.333%"><span>5</span></div>
+        <div class="tl-seg s2" style="width:25%"><span>15</span></div>
+        <div class="tl-seg s3" style="width:16.667%"><span>10</span></div>
+        <div class="tl-seg s4" style="width:25%"><span>15</span></div>
+        <div class="tl-seg s4x" style="width:16.667%"><span>+10</span></div>
+        <div class="tl-seg s5" style="width:8.333%"><span>5</span></div>
+      </div>
+      <div class="tl-scale" aria-hidden="true"><span>0</span><span>15</span><span>30</span><span>45</span><span>60 min</span></div>
+      <ol class="tl-list">
+        <li><span class="sw s1" aria-hidden="true"></span><span class="nm">Acolhimento</span><span class="mn">5 min</span></li>
+        <li><span class="sw s2" aria-hidden="true"></span><span class="nm">Roda de conversa</span><span class="mn">15 min</span></li>
+        <li><span class="sw s3" aria-hidden="true"></span><span class="nm">Mindfulness</span><span class="mn">10 min</span></li>
+        <li><span class="sw s4" aria-hidden="true"></span><span class="nm">Reflexão e propostas</span><span class="mn">15–25 min</span></li>
+        <li><span class="sw s5" aria-hidden="true"></span><span class="nm">Encerramento</span><span class="mn">5 min</span></li>
+      </ol>
+      <p class="legend-var">A faixa listrada indica a parte flexível da reflexão (de 15 até 25 minutos).</p>
+    </div>
+    <div class="materials">
+      <h3>Materiais</h3>
+      <ul>
+        <li>Cadeiras em círculo</li>
+        <li>Papel e caneta</li>
+        <li><span>Música instrumental: “Descansar e Esvaziar a Mente (Com Sons de Chuva)” — Barulho de Chuva</span></li>
+      </ul>
+    </div>
+  </div>
+  <p class="note"><strong>Nota:</strong> distribuição de tempo sugerida para operacionalizar o roteiro.</p>
+  <div class="explain">
+    <h4>Em poucas palavras</h4>
+    <p>É um encontro único, de cerca de uma hora, que precisa de poucos recursos. A maior parte do tempo fica para a conversa e para a construção de propostas; o tempo da reflexão pode se ajustar ao ritmo do grupo.</p>
+  </div>
+  <div class="slide-foot"><span>PSICOLOGIA SOCIAL • CAPSi ELDORADO • GRUPO 4</span><span>08</span></div>
+ </div>
+</section>
+
+<!-- 09 -->
+<section class="slide" id="s09" aria-labelledby="h09" data-title="Resultados esperados">
+ <div class="inner">
+  <div class="eyebrow"><span>Intervenção psicossocial</span><span class="num">09/12</span></div>
+  <h2 id="h09">Resultados esperados</h2>
+  <div class="grid c2">
+    <div class="card"><h3>Vínculos</h3><p>Fortalecimento das relações entre profissionais.</p></div>
+    <div class="card teal"><h3>Reconhecimento</h3><p>Maior percepção das necessidades emocionais.</p></div>
+    <div class="card gold"><h3>Autocuidado</h3><p>Incentivo a práticas de cuidado pessoal.</p></div>
+    <div class="card"><h3>Ação coletiva</h3><p>Valorização do cuidado coletivo e identificação de demandas para diálogo com a gestão.</p></div>
+  </div>
+  <div class="explain">
+    <h4>Em poucas palavras</h4>
+    <p>Como se trata de uma <strong>proposta</strong>, estes são os resultados <strong>esperados</strong>, e não resultados já medidos. Espera-se que a equipe saia do encontro mais unida, mais atenta às próprias necessidades e com demandas mais claras para levar à gestão.</p>
+  </div>
+  <div class="slide-foot"><span>PSICOLOGIA SOCIAL • CAPSi ELDORADO • GRUPO 4</span><span>09</span></div>
+ </div>
+</section>
+
+<!-- 10 -->
+<section class="slide" id="s10" aria-labelledby="h10" data-title="Considerações finais">
+ <div class="inner">
+  <div class="eyebrow"><span>Intervenção psicossocial</span><span class="num">10/12</span></div>
+  <h2 id="h10">Considerações finais</h2>
+  <p class="lead">Cuidar da saúde mental dos trabalhadores é uma responsabilidade individual, coletiva e institucional.</p>
+  <blockquote class="quote"><p>“Quem cuida também precisa de cuidado. Afinal, promover saúde mental começa também por reconhecer quem está na linha de frente do cuidado.”</p></blockquote>
+  <p>Condições dignas de trabalho, acolhimento e valorização profissional.</p>
+  <div class="explain">
+    <h4>Em poucas palavras</h4>
+    <p>O cuidado com quem cuida não depende só de cada profissional. Ele acontece em três níveis: <strong>individual</strong> (cada um olhar para si), <strong>coletivo</strong> (a equipe apoiar-se mutuamente) e <strong>institucional</strong> (a gestão garantir condições dignas de trabalho).</p>
+  </div>
+  <div class="slide-foot"><span>PSICOLOGIA SOCIAL • CAPSi ELDORADO • GRUPO 4</span><span>10</span></div>
+ </div>
+</section>
+
+<!-- 11 -->
+<section class="slide" id="s11" aria-labelledby="h11" data-title="Referências">
+ <div class="inner">
+  <div class="eyebrow"><span>Intervenção psicossocial</span><span class="num">11/12</span></div>
+  <h2 id="h11">Referências</h2>
+  <ul class="refs">
+    <li>AMARANTE, P. <em>Saúde mental e atenção psicossocial</em>. Rio de Janeiro: Editora Fiocruz, 2007.</li>
+    <li>CONTAGEM. Prefeitura Municipal. <em>CAPSi acolhe e cuida de crianças e adolescentes em sofrimento mental: saiba mais sobre o serviço</em>. Contagem, 1 abr. 2025.</li>
+    <li>MENDES, Ana Magnólia (org.). <em>Psicodinâmica do trabalho: teoria, método e pesquisas</em>. São Paulo: Casa do Psicólogo, 2007.</li>
+  </ul>
+  <div class="explain">
+    <h4>Em poucas palavras</h4>
+    <p>Estas são as fontes que sustentam o projeto: uma obra sobre atenção psicossocial, uma publicação da Prefeitura de Contagem sobre o CAPSi e uma coletânea sobre psicodinâmica do trabalho.</p>
+  </div>
+  <div class="slide-foot"><span>PSICOLOGIA SOCIAL • CAPSi ELDORADO • GRUPO 4</span><span>11</span></div>
+ </div>
+</section>
+
+<!-- 12 -->
+<section class="slide" id="s12" aria-labelledby="h12" data-title="Integrantes • Grupo 4">
+ <div class="inner">
+  <div class="eyebrow"><span>Intervenção psicossocial</span><span class="num">12/12</span></div>
+  <h2 id="h12">Integrantes • Grupo 4</h2>
+  <ul class="members">
+    <li>Rosilaine</li>
+    <li>Grazy</li>
+    <li>Fabiano</li>
+    <li>Ícaro</li>
+    <li>Sharon</li>
+    <li>Carol Azevedo</li>
+  </ul>
+  <div class="explain">
+    <h4>Obrigado pela visita!</h4>
+    <p>Projeto apresentado na ExpoUNA 2026 pelo Grupo 4 da disciplina de Psicologia Social da UNA.</p>
+  </div>
+  <div class="slide-foot"><span>PSICOLOGIA SOCIAL • CAPSi ELDORADO • GRUPO 4</span><span>12</span></div>
+ </div>
+</section>
+
+</main>
+
+<div class="pbar" id="pbar" role="toolbar" aria-label="Controles do modo apresentação">
+  <button type="button" class="btn small exit" id="pExit" aria-label="Sair do modo apresentação">&#10005;<span class="lbl"> Sair</span></button>
+  <div class="grp">
+    <button type="button" class="btn small" id="pPrev" aria-label="Tópico anterior">&#8592;<span class="lbl"> Anterior</span></button>
+    <span class="count" id="pCount" aria-live="polite">1/12</span>
+    <button type="button" class="btn small" id="pNext" aria-label="Próximo tópico"><span class="lbl">Próximo </span>&#8594;</button>
+  </div>
+</div>
+
+<footer class="site-foot">
+  <div class="redbar" aria-hidden="true"></div>
+  <p>ExpoUNA 2026 • Psicologia Social • CAPSi Eldorado • Grupo 4</p>
+  <p class="tag"><em>65 anos</em> mudando mundos</p>
+  <p><a class="backtop" href="#s01">Voltar ao início ↑</a></p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var slides = Array.prototype.slice.call(document.querySelectorAll("main > .slide"));
+  var chips = Array.prototype.slice.call(document.querySelectorAll("#chips .chip"));
+  var chipBox = document.getElementById("chips");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- progress + active chip ---- */
+  var progress = document.getElementById("progress");
+  function onScroll(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (h > 0 ? Math.min(100, window.scrollY / h * 100) : 0) + "%";
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+  var current = -1;
+  function setActiveChip(i){
+    if (i === current) return; current = i;
+    chips.forEach(function(c, k){ if (k === i) c.setAttribute("aria-current","true"); else c.removeAttribute("aria-current"); });
+    var c = chips[i]; if (!c) return;
+    var target = c.offsetLeft - (chipBox.clientWidth - c.offsetWidth) / 2;
+    try { chipBox.scrollTo({left: target, behavior: reduce ? "auto" : "smooth"}); } catch(e){ chipBox.scrollLeft = target; }
+  }
+  function updateActive(){
+    if (document.body.classList.contains("present")) return;
+    var line = window.innerHeight * 0.33, idx = 0;
+    for (var i = 0; i < slides.length; i++){ if (slides[i].getBoundingClientRect().top <= line) idx = i; }
+    setActiveChip(idx);
+  }
+  window.addEventListener("scroll", updateActive, {passive:true});
+  window.addEventListener("resize", updateActive);
+  updateActive();
+
+  /* ---- breathing widget ---- */
+  var breath = document.getElementById("breath"), circle = document.getElementById("breathCircle"),
+      btext = document.getElementById("breathText"), bbtn = document.getElementById("breathBtn"),
+      breset = document.getElementById("breathReset"), bstatus = document.getElementById("breathStatus"),
+      bprompt = document.getElementById("breathPrompt");
+  var IN = 4000, OUT = 6000, running = false, timer = null, tick = null, cycles = 0, phase = null, phaseEnd = 0;
+  var prompts = [
+    "Respirar: deixe o ar entrar e sair, sem forçar.",
+    "Perceber: como está o seu corpo agora? E as suas emoções?",
+    "Reconhecer: do que você precisa para se cuidar hoje?"
+  ];
+  function setPhase(p){
+    phase = p;
+    breath.classList.remove("idle","inhale","exhale");
+    breath.classList.add(p);
+    var d = p === "inhale" ? IN : OUT;
+    circle.style.transitionDuration = d + "ms";
+    circle.style.transform = p === "inhale" ? "scale(1)" : "scale(.62)";
+    phaseEnd = Date.now() + d;
+    renderText();
+    timer = setTimeout(function(){
+      if (!running) return;
+      if (p === "exhale"){ cycles++; bstatus.textContent = cycles === 1 ? "1 ciclo completo" : cycles + " ciclos completos"; bprompt.textContent = prompts[Math.floor(cycles/2) % 3]; }
+      setPhase(p === "inhale" ? "exhale" : "inhale");
+    }, d);
+  }
+  function renderText(){
+    var s = Math.max(1, Math.ceil((phaseEnd - Date.now())/1000));
+    btext.innerHTML = (phase === "inhale" ? "Inspire…" : "Expire…") + "<small>" + s + "</small>";
+  }
+  function start(){
+    running = true;
+    bbtn.innerHTML = "&#10074;&#10074; Pausar"; bbtn.setAttribute("aria-pressed","true"); bbtn.setAttribute("aria-label","Pausar respiração guiada");
+    if (cycles === 0) bprompt.textContent = prompts[0];
+    bstatus.textContent = cycles ? bstatus.textContent : "Em andamento";
+    setPhase("inhale");
+    tick = setInterval(renderText, 250);
+  }
+  function pause(label){
+    running = false; clearTimeout(timer); clearInterval(tick);
+    breath.classList.remove("inhale","exhale"); breath.classList.add("idle");
+    circle.style.transitionDuration = "800ms"; circle.style.transform = "scale(.62)";
+    btext.textContent = label || "Pausado";
+    if (!cycles) bstatus.textContent = "";
+    bbtn.innerHTML = "&#9654; Continuar"; bbtn.setAttribute("aria-pressed","false"); bbtn.setAttribute("aria-label","Continuar respiração guiada");
+  }
+  bbtn.addEventListener("click", function(){ running ? pause() : start(); });
+  breset.addEventListener("click", function(){
+    pause(); cycles = 0; bstatus.textContent = ""; bprompt.textContent = "Respirar → Perceber → Reconhecer";
+    btext.textContent = "Pronto?";
+    bbtn.innerHTML = "&#9654; Iniciar"; bbtn.setAttribute("aria-label","Iniciar respiração guiada");
+  });
+  document.addEventListener("visibilitychange", function(){ if (document.hidden && running) pause(); });
+  window.__breath = { isRunning: function(){ return running; }, phase: function(){ return phase; } };
+
+  /* ---- private notes ---- */
+  var notes = {};
+  var store = null;
+  try { var t = "__cqc"; window.localStorage.setItem(t, t); window.localStorage.removeItem(t); store = window.localStorage; } catch(e){ store = null; }
+  var tas = Array.prototype.slice.call(document.querySelectorAll("textarea[data-key]"));
+  tas.forEach(function(ta){
+    var k = ta.getAttribute("data-key"), info = ta.parentNode.querySelector(".saved"), st;
+    if (store){ try { var v = store.getItem(k); if (v) { ta.value = v; notes[k] = v; } } catch(e){} }
+    ta.addEventListener("input", function(){
+      notes[k] = ta.value;
+      clearTimeout(st);
+      st = setTimeout(function(){
+        if (store){ try { store.setItem(k, ta.value); info.textContent = "Guardado neste aparelho."; return; } catch(e){} }
+        info.textContent = "Guardado enquanto esta página estiver aberta.";
+      }, 400);
+    });
+  });
+  document.getElementById("clearNotes").addEventListener("click", function(){
+    tas.forEach(function(ta){ var k = ta.getAttribute("data-key"); ta.value = ""; notes[k] = ""; ta.parentNode.querySelector(".saved").textContent = ""; if (store){ try { store.removeItem(k); } catch(e){} } });
+  });
+
+  /* ---- presentation mode ---- */
+  var body = document.body, idx = 0, pCount = document.getElementById("pCount"),
+      pPrev = document.getElementById("pPrev"), pNext = document.getElementById("pNext"), lastFocus = null;
+  function show(i){
+    idx = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach(function(s, k){ s.classList.toggle("active", k === idx); if (k === idx) s.scrollTop = 0; });
+    pCount.textContent = (idx + 1) + "/" + slides.length;
+    pPrev.disabled = idx === 0; pNext.disabled = idx === slides.length - 1;
+    setActiveChip(idx);
+  }
+  function enter(){
+    lastFocus = document.activeElement;
+    var start = current < 0 ? 0 : current;
+    body.classList.add("present");
+    show(start);
+    pNext.focus();
+  }
+  function exit(){
+    body.classList.remove("present");
+    slides.forEach(function(s){ s.classList.remove("active"); });
+    var target = slides[idx];
+    if (target) target.scrollIntoView({block:"start"});
+    current = -1; updateActive();
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  document.getElementById("btnPresent").addEventListener("click", enter);
+  Array.prototype.forEach.call(document.querySelectorAll("[data-present]"), function(b){ b.addEventListener("click", enter); });
+  document.getElementById("pExit").addEventListener("click", exit);
+  pPrev.addEventListener("click", function(){ show(idx - 1); });
+  pNext.addEventListener("click", function(){ show(idx + 1); });
+  document.addEventListener("keydown", function(e){
+    if (!body.classList.contains("present")) return;
+    var tag = (e.target && e.target.tagName) || "";
+    if (tag === "TEXTAREA" || tag === "INPUT") return;
+    if (e.key === "ArrowRight" || e.key === "PageDown"){ e.preventDefault(); show(idx + 1); }
+    else if (e.key === "ArrowLeft" || e.key === "PageUp"){ e.preventDefault(); show(idx - 1); }
+    else if (e.key === "Home"){ e.preventDefault(); show(0); }
+    else if (e.key === "End"){ e.preventDefault(); show(slides.length - 1); }
+    else if (e.key === "Escape"){ e.preventDefault(); exit(); }
+  });
+  var tx = 0, ty = 0, tt = 0;
+  document.addEventListener("touchstart", function(e){
+    if (!body.classList.contains("present") || e.touches.length !== 1) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY; tt = Date.now();
+  }, {passive:true});
+  document.addEventListener("touchend", function(e){
+    if (!body.classList.contains("present") || !tt) return;
+    var t = e.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty; tt = 0;
+    var tag = (e.target && e.target.tagName) || "";
+    if (tag === "TEXTAREA") return;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5){ show(idx + (dx < 0 ? 1 : -1)); }
+  }, {passive:true});
+  window.__present = { enter: enter, exit: exit, show: show, index: function(){ return idx; } };
+
+  /* ---- print: open all details ---- */
+  var opened = [];
+  window.addEventListener("beforeprint", function(){
+    opened = [];
+    Array.prototype.forEach.call(document.querySelectorAll("details"), function(d){ if (!d.open){ d.open = true; opened.push(d); } });
+  });
+  window.addEventListener("afterprint", function(){ opened.forEach(function(d){ d.open = false; }); });
+})();
+</script>
+</body>
+</html>
