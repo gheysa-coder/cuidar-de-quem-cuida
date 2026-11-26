@@ -193,6 +193,22 @@ body.present .pbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:6
 .pbar .grp{display:flex;gap:.4rem;align-items:center}
 @media (max-width:380px){.pbar .lbl{display:none}}
 
+
+/* ---------- Música de fundo ---------- */
+.music-fab{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:70;display:inline-flex;align-items:center;gap:.45em;min-height:48px;padding:.55em 1.05em;border-radius:999px;border:2px solid #fff;background:var(--navy);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer;box-shadow:0 4px 14px rgba(31,58,95,.3)}
+.music-fab:hover{background:var(--navy-2)}
+.music-fab .note{font-size:1.15em;line-height:1}
+.music-card{position:fixed;left:12px;right:12px;bottom:calc(70px + env(safe-area-inset-bottom));z-index:70;max-width:420px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(31,58,95,.25);padding:.8rem .8rem .7rem}
+.music-card.min{left:-10000px;right:auto;width:320px;opacity:0;pointer-events:none}
+.music-card .mh{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-bottom:.45rem}
+.music-card .mt{font-weight:800;color:var(--navy);font-size:.95rem}
+.music-card .mx{min-height:40px;min-width:40px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--navy);font-weight:800;cursor:pointer}
+.music-card iframe{display:block;width:100%;height:175px;border:0;border-radius:10px;background:#F2F4F7}
+.music-card .mi{font-size:.8rem;color:var(--muted);margin:.45rem 0 0;line-height:1.4}
+body.present .music-fab{bottom:calc(76px + env(safe-area-inset-bottom))}
+body.present .music-card{bottom:calc(134px + env(safe-area-inset-bottom))}
+.hero .music-invite{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-top:1rem;background:#EEF3F8;border-radius:8px;padding:.75rem 1rem;font-size:.98rem}
+
 /* ---------- Print ---------- */
 @media print{
   @page{margin:12mm}
@@ -200,7 +216,7 @@ body.present .pbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:6
   .slide-foot{margin-top:.6rem;break-before:avoid}
   .explain,.note,details.more{margin-top:.6rem}
   .hero .logo{width:150px}
-  .nav,.pbar,.skip,.breath-controls,.breath-stage,.breath-status,.no-print,.hero .cta,.backtop,.saved{display:none!important}
+  .nav,.pbar,.skip,.music-fab,.music-card,.music-invite,.breath-controls,.breath-stage,.breath-status,.no-print,.hero .cta,.backtop,.saved{display:none!important}
   main{max-width:none;padding:0}
   .slide,body.present .slide{display:block!important;position:static!important;box-shadow:none;border:1px solid #bbb;border-top:4px solid var(--teal);margin:0;break-inside:auto;page-break-after:always;padding:5mm}
   .slide:last-child{page-break-after:auto}
@@ -270,6 +286,10 @@ body.present .pbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:6
       <p>O cuidado é feito por uma <strong>equipe multiprofissional</strong> (por exemplo, profissionais de psicologia, psiquiatria, enfermagem, terapia ocupacional e serviço social), em liberdade e articulado com a família, a escola e o território.</p>
     </div>
   </details>
+  <div class="music-invite no-print">
+    <span>&#9835; Que tal ler ao som da música da dinâmica? <em>“Descansar e Esvaziar a Mente (Com Sons de Chuva)”</em> — Barulho De Chuva.</span>
+    <button type="button" class="btn small" data-music-open aria-label="Abrir o player da música de fundo">&#9654; Ouvir enquanto leio</button>
+  </div>
   <div class="cta">
     <a class="btn" href="#s02">Começar a leitura</a>
     <button type="button" class="btn ghost" data-present aria-label="Ver como apresentação, em tela cheia">Ver como apresentação</button>
@@ -595,6 +615,16 @@ body.present .pbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:6
   <p><a class="backtop" href="#s01">Voltar ao início ↑</a></p>
 </footer>
 
+<button type="button" class="music-fab" id="musicFab" aria-expanded="false" aria-controls="musicCard"><span class="note" aria-hidden="true">&#9835;</span> Música de fundo</button>
+<div class="music-card min" id="musicCard" role="region" aria-hidden="true" aria-label="Player da música de fundo">
+  <div class="mh">
+    <span class="mt">Música de fundo</span>
+    <button type="button" class="mx" id="musicMin" aria-label="Minimizar o player (a música continua)">&#8211;</button>
+  </div>
+  <div id="musicSlot"></div>
+  <p class="mi">“Descansar e Esvaziar a Mente (Com Sons de Chuva)”, de Barulho De Chuva. Toque no &#9654; do player para começar. Você pode minimizar e continuar lendo: a música segue tocando. Sem conta Apple Music, o player toca uma prévia da faixa.</p>
+</div>
+
 <script>
 (function(){
   "use strict";
@@ -758,6 +788,25 @@ body.present .pbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:6
     if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5){ show(idx + (dx < 0 ? 1 : -1)); }
   }, {passive:true});
   window.__present = { enter: enter, exit: exit, show: show, index: function(){ return idx; } };
+
+  /* ---- música de fundo (player oficial do Apple Music; o navegador exige um toque para tocar) ---- */
+  var EMBED = "https://embed.music.apple.com/br/song/descansar-e-esvaziar-a-mente-com-sons-de-chuva/1813490904";
+  var fab = document.getElementById("musicFab"), card = document.getElementById("musicCard"),
+      slot = document.getElementById("musicSlot"), mmin = document.getElementById("musicMin"), loaded = false;
+  function openMusic(){
+    if (!loaded){
+      var f = document.createElement("iframe");
+      f.src = EMBED; f.title = "Player Apple Music: Descansar e Esvaziar a Mente (Com Sons de Chuva), Barulho De Chuva";
+      f.allow = "autoplay *; encrypted-media *; fullscreen *; clipboard-write";
+      f.setAttribute("sandbox", "allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation");
+      f.loading = "eager"; slot.appendChild(f); loaded = true;
+    }
+    card.classList.remove("min"); card.removeAttribute("aria-hidden"); fab.setAttribute("aria-expanded","true");
+  }
+  function minMusic(){ card.classList.add("min"); card.setAttribute("aria-hidden","true"); fab.setAttribute("aria-expanded","false"); fab.focus(); }
+  fab.addEventListener("click", function(){ card.classList.contains("min") ? openMusic() : minMusic(); });
+  mmin.addEventListener("click", minMusic);
+  Array.prototype.forEach.call(document.querySelectorAll("[data-music-open]"), function(b){ b.addEventListener("click", openMusic); });
 
   /* ---- print: open all details ---- */
   var opened = [];
