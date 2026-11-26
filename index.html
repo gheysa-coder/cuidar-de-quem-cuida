@@ -197,7 +197,7 @@ body.present .pbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:6
 /* ---------- Música de fundo ---------- */
 .music-fab{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:70;display:inline-flex;align-items:center;gap:.45em;min-height:48px;padding:.55em 1.05em;border-radius:999px;border:2px solid #fff;background:var(--navy);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer;box-shadow:0 4px 14px rgba(31,58,95,.3)}
 .music-fab:hover{background:var(--navy-2)}
-.music-fab .note{font-size:1.15em;line-height:1}
+.music-fab .mnote{font-size:1.15em;line-height:1}
 .music-card{position:fixed;left:12px;right:12px;bottom:calc(70px + env(safe-area-inset-bottom));z-index:70;max-width:420px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(31,58,95,.25);padding:.8rem .8rem .7rem}
 .music-card.min{left:-10000px;right:auto;width:320px;opacity:0;pointer-events:none}
 .music-card .mh{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-bottom:.45rem}
@@ -615,7 +615,7 @@ body.present .music-card{bottom:calc(134px + env(safe-area-inset-bottom))}
   <p><a class="backtop" href="#s01">Voltar ao início ↑</a></p>
 </footer>
 
-<button type="button" class="music-fab" id="musicFab" aria-expanded="false" aria-controls="musicCard"><svg class="note" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 3v11.6A3.5 3.5 0 1 0 11 18V8h8v6.6A3.5 3.5 0 1 0 21 18V3z"/></svg> Música de fundo</button>
+<button type="button" class="music-fab" id="musicFab" aria-expanded="false" aria-controls="musicCard"><svg class="mnote" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 3v11.6A3.5 3.5 0 1 0 11 18V8h8v6.6A3.5 3.5 0 1 0 21 18V3z"/></svg> Música de fundo</button>
 <div class="music-card min" id="musicCard" role="region" aria-hidden="true" aria-label="Player da música de fundo">
   <div class="mh">
     <span class="mt">Música de fundo</span>
